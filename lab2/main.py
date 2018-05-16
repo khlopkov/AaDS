@@ -1,21 +1,27 @@
-from graph import Graph
-import time
+import graph
 
 n = 10
 m = 20
+q = 1
+r = 10
 
-time_start = time.time()
-graph = Graph(n, m)
+my_graph = graph.init_graph(n, m, q, r)
 
-for i in range(n):
-    v = graph.adj[i]
+heap = graph.dijkstra_d_heap(my_graph, 2, 2)
+
+for i in range(0, len(my_graph)):
     out = str(i) + ": "
-    while v is not None:
-        out += "[" + str(v.name) + ", " + str(v.weight) + "],"
-        v = v.next
+    p = my_graph[i]
+    while p is not None:
+        out += "["
+        out += str(p.name) + ", " + str(p.weight)
+        out += "]"
+        p = p.next
     print(out)
 
-heap = graph.dijktstra_dheap(3, 2)
+for i in heap.index:
+    out = str(heap.node[i].name) + ": "
+    out += str(heap.node[i].key)
+    print(out)
 
-for i in range(n):
-    print(str(heap.node[i].name) + ": " + str(heap.node[i].key))
+
